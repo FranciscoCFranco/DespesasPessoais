@@ -1,30 +1,28 @@
-import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
+import 'models/transaction.dart';
 
-main() => runApp(ExpensesApp());
+main() => runApp(const ExpensesApp());
 
 class ExpensesApp extends StatelessWidget {
-  const ExpensesApp({super.key});
-
+  const ExpensesApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyHomePage(),
-    );
+    return MaterialApp(home: MyHomePage());
   }
 }
 
 class MyHomePage extends StatelessWidget {
+  MyHomePage({Key? key}) : super(key: key);
   final _transactions = [
     Transaction(
       id: 't1',
-      title: 'Novo Tênis de corrida',
+      title: 'Novo Tênis de Corrida',
       value: 310.76,
       date: DateTime.now(),
     ),
     Transaction(
       id: 't2',
-      title: 'Conta de luz',
+      title: 'Conta de Luz',
       value: 211.30,
       date: DateTime.now(),
     ),
@@ -34,14 +32,13 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Despesas Pessoais'),
+        title: const Text('Despesas Pessoais'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            width: double.infinity,
+        children: [
+          const SizedBox(
             child: Card(
               color: Colors.blue,
               child: Text('Gráfico'),
@@ -51,10 +48,24 @@ class MyHomePage extends StatelessWidget {
           Column(
             children: _transactions.map((tr) {
               return Card(
-                child: Text(tr.title),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      child: Text(
+                        tr.value.toString(),
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Text(tr.title),
+                        Text(tr.date.toString()),
+                      ],
+                    ),
+                  ],
+                ),
               );
             }).toList(),
-          )
+          ),
         ],
       ),
     );
