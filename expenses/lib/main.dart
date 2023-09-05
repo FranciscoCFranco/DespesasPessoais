@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'components/transaction_list.dart';
 import 'models/transaction.dart';
-import 'components/chart.dart';
 
 main() => runApp(ExpensesApp());
 
