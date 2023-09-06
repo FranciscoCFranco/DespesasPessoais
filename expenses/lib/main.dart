@@ -94,7 +94,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
-      title: const Text('Despesas Pessoais'),
+      title: const Text(
+        'Despesas Pessoais',
+      ),
       actions: [
         IconButton(
           icon: const Icon(Icons.add),
@@ -102,6 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ],
     );
+
     final availableHeight = MediaQuery.of(context).size.height -
         appBar.preferredSize.height -
         MediaQuery.of(context).padding.top;
@@ -113,11 +116,11 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              height: availableHeight * 0.3,
+              height: availableHeight * 0.25,
               child: Chart(_recentTransactions),
             ),
             Container(
-              height: availableHeight * 0.7,
+              height: availableHeight * 0.75,
               child: TransactionList(_transactions, _deleteTransaction),
             ),
           ],
