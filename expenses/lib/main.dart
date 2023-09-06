@@ -94,6 +94,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLandScape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     final appBar = AppBar(
       title: const Text(
         'Despesas Pessoais',
@@ -116,29 +118,31 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Exibir Grágico'),
-                Switch(
-                  value: _showChart,
-                  onChanged: (value) {
-                    setState(() {
-                      _showChart = value;
-                    });
-                  },
-                ),
-              ],
-            ),
-            _showChart
-                ? Container(
-                    height: availableHeight * 0.25,
-                    child: Chart(_recentTransactions),
-                  )
-                : Container(
-                    height: availableHeight * 0.75,
-                    child: TransactionList(_transactions, _deleteTransaction),
+            if (isLandScape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Exibir Grágico'),
+                  Switch(
+                    value: _showChart,
+                    onChanged: (value) {
+                      setState(() {
+                        _showChart = value;
+                      });
+                    },
                   ),
+                ],
+              ),
+            if (_showChart || !isLandScape)
+              Container(
+                height: availableHeight * (isLandScape ? 0.7 : 0.25),
+                child: Chart(_recentTransactions),
+              ),
+            if (!_showChart || !isLandScape)
+              Container(
+                height: availableHeight * 0.75,
+                child: TransactionList(_transactions, _deleteTransaction),
+              ),
           ],
         ),
       ),
